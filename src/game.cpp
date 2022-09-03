@@ -2,10 +2,9 @@
 #include "SDL.h"
 #include <iostream>
 
-Game::Game(std::size_t grid_width, std::size_t grid_height)
-    : player(), engine(dev()), random_w(0, static_cast<int>(grid_width - 1)),
+Game::Game(std::size_t grid_width, std::size_t grid_height, const int startPlayer_x, const int startPlayer_y)
+    : player(startPlayer_x, startPlayer_y), engine(dev()), random_w(0, static_cast<int>(grid_width - 1)),
       random_h(0, static_cast<int>(grid_height - 1)) {
-  // PlaceFood();
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
@@ -45,6 +44,9 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     if (frame_duration < target_frame_duration) {
       SDL_Delay(target_frame_duration - frame_duration);
     }
+
+    std::cout << "Player X: " << player.get_x() << "\n";
+    std::cout << "Player y: " << player.get_y() << "\n";
   }
 }
 

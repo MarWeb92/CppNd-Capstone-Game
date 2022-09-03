@@ -50,16 +50,16 @@ void Renderer::Render(Player player) {
   SDL_RenderDrawLine(sdl_renderer, 0, screen_height - (screen_height/grid_height * 10),
                      screen_width, screen_height - (screen_height/grid_height * 10));
 
-  // Render food
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
-  block.x = 0 * block.w;
-  block.y = 0 * block.h;
-  SDL_RenderFillRect(sdl_renderer, &block);
+  // // Render food
+  // SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
+  // block.x = 0 * block.w;
+  // block.y = 0 * block.h;
+  // SDL_RenderFillRect(sdl_renderer, &block);
 
   // Render Player
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    block.x = player.get_x() * block.w;
-    block.y = player.get_y() * block.h;
+    block.x = player.get_x();
+    block.y = player.get_y();
     SDL_RenderFillRect(sdl_renderer, &block);
 
   // // Render snake's head

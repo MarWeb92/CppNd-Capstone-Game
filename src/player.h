@@ -7,7 +7,7 @@ public:
 
   // Constructor and Destructor
   Player();
-  Player(int x, int y);
+  Player(const int x, const int y);
   ~Player();
 
   void Update();
