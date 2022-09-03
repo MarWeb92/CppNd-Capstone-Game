@@ -36,7 +36,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Player player, SDL_Point const &food) {
+void Renderer::Render(Player player) {
   SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;

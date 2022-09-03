@@ -1,21 +1,20 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include <vector>
 #include "SDL.h"
-#include "snake.h"
 #include "player.h"
+#include <vector>
 
 class Renderer {
- public:
+public:
   Renderer(const std::size_t screen_width, const std::size_t screen_height,
            const std::size_t grid_width, const std::size_t grid_height);
   ~Renderer();
 
-  void Render(Player player, SDL_Point const &food);
+  void Render(Player player);
   void UpdateWindowTitle(int score, int fps);
 
- private:
+private:
   SDL_Window *sdl_window;
   SDL_Renderer *sdl_renderer;
 

@@ -8,3 +8,9 @@ int Player::get_x(){return _x;}
 int Player::get_y(){return _y;}
 void Player::set_x(const int x){_x = x;}
 void Player::set_y(const int y){_y = y;}
+void Player::set_dir(const Direction dir){_dir = dir;}
+void Player::set_jump(const bool jump){_jump = jump;}
+
+void Player::Update(){
+    //TODO: update Player based on input
+}
