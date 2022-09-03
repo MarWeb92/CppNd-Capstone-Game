@@ -7,16 +7,16 @@ public:
 
   // Constructor and Destructor
   Player();
-  Player(const int x, const int y);
+  Player(const float x, const float y);
   ~Player();
 
   void Update();
 
   // getters and setters
-  int get_x();
-  int get_y();
-  void set_x(const int x);
-  void set_y(const int y);
+  float get_x();
+  float get_y();
+  void set_x(const float x);
+  void set_y(const float y);
   void set_dir(const Direction dir);
   void set_jump(const bool jump);
 
@@ -26,7 +26,7 @@ private:
   float _x, _y;
   Direction _dir{Direction::kStop};
   bool _jump{false};
-  float _speed{0.1};
+  float _speed{5.0};
 };
 
 #endif

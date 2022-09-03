@@ -10,8 +10,8 @@ int main() {
   constexpr std::size_t kScreenHeight{640};
   constexpr std::size_t kGridWidth{128};
   constexpr std::size_t kGridHeight{64};
-  constexpr int kStartPlayerX{kScreenWidth/kGridWidth*20};
-  constexpr int kStartPlayerY{kScreenHeight/kGridHeight*53};
+  constexpr float kStartPlayerX{kScreenWidth/kGridWidth*20};
+  constexpr float kStartPlayerY{kScreenHeight/kGridHeight*53};
 
   Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
   Controller controller;
