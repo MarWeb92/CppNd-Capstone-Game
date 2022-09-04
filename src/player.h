@@ -3,7 +3,7 @@
 
 #include "object.h"
 
-class Player : private Object {
+class Player : public Object {
 public:
   enum class Direction { kStop, kForward, kBackward };
 

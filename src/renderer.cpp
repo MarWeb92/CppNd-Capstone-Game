@@ -1,4 +1,5 @@
 #include "renderer.h"
+#include "player.h"
 #include <iostream>
 #include <string>
 
@@ -53,7 +54,7 @@ void Renderer::Render(Player player) {
   // Render Player
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     block.x = static_cast<int>(player.get_x());
-    block.y = static_cast<int>(player.get_y());
+    block.y = static_cast<int>(player.GetAbsHeight());
     SDL_RenderFillRect(sdl_renderer, &block);
 
   // Update Screen
