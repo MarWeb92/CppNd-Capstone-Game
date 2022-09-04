@@ -44,6 +44,7 @@ void Controller::HandleInput(bool &running, Player &player) {
 
       case SDLK_SPACE:
         _keySpacePressed = true;
+        player.set_jump(true);
       }
     } else if (e.type == SDL_KEYUP) {
       switch (e.key.keysym.sym) {

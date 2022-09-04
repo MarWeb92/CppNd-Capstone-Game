@@ -21,6 +21,7 @@ void Player::Update(){
             set_x(_x - _speed);
             break;
 
+    if ((_y <= 110) && (_jump == true)) {}
     }
 
 }
