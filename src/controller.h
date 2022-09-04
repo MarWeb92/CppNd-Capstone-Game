@@ -5,10 +5,13 @@
 
 class Controller {
  public:
-  void HandleInput(bool &running, Player &player) const;
+  void ChangeDirection(Player::Direction input, Player &player);
+  void HandleInput(bool &running, Player &player);
 
  private:
-
+    bool _keyRightPressed{false};
+    bool _keyLeftPressed{false};
+    bool _keySpacePressed{false};
 };
 
 #endif
