@@ -8,7 +8,7 @@
 
 class Game {
  public:
-  Game(std::size_t grid_width, std::size_t grid_height, const float startPlayer_x, const float startPlayer_y);
+  Game(int screenHeight, std::size_t grid_width, std::size_t grid_height, const float startPlayer_x, const float startPlayer_y);
   void Run(Controller &controller, Renderer &renderer,
            std::size_t target_frame_duration);
   int GetScore() const;
@@ -24,7 +24,6 @@ class Game {
 
   int score{0};
 
-  void PlaceFood();
   void Update();
 };
 

@@ -1,13 +1,12 @@
 #include "player.h"
 
-Player::Player(float x, float y): _x(x), _y(y) {}
-Player::Player():_x(0), _y(0) {}
+Player::Player(int x, int y, int screenHeight):Object(x, y, screenHeight) {}
 Player ::~Player(){}
 
-float Player::get_x(){return _x;}
-float Player::get_y(){return _y;}
-void Player::set_x(const float x){_x = x;}
-void Player::set_y(const float y){_y = y;}
+int Player::get_x(){return _x;}
+int Player::get_y(){return _y;}
+void Player::set_x(const int x){_x = x;}
+void Player::set_y(const int y){_y = y;}
 void Player::set_dir(const Direction dir){_dir = dir;}
 void Player::set_jump(const bool jump){_jump = jump;}
 
