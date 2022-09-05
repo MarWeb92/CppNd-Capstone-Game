@@ -2,9 +2,8 @@
 #include "SDL.h"
 #include <iostream>
 
-Game::Game(int screenHeight, std::size_t grid_width, std::size_t grid_height, const float startPlayer_x, const float startPlayer_y)
-    : player(startPlayer_x, startPlayer_y, screenHeight), engine(dev()), random_w(0, static_cast<int>(grid_width - 1)),
-      random_h(0, static_cast<int>(grid_height - 1)) {
+Game::Game(int screenHeight, const int startPlayer_x, const int startPlayer_y)
+    : player(startPlayer_x, startPlayer_y, screenHeight), engine(dev()) {
 }
 
 void Game::Run(Controller &controller, Renderer &renderer,

@@ -4,10 +4,8 @@
 #include <string>
 
 Renderer::Renderer(const std::size_t screen_width,
-                   const std::size_t screen_height,
-                   const std::size_t grid_width, const std::size_t grid_height)
-    : screen_width(screen_width), screen_height(screen_height),
-      grid_width(grid_width), grid_height(grid_height) {
+                   const std::size_t screen_height)
+    : screen_width(screen_width), screen_height(screen_height) {
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     std::cerr << "SDL could not initialize.\n";
@@ -39,8 +37,8 @@ Renderer::~Renderer() {
 
 void Renderer::Render(Player player) {
   SDL_Rect block;
-  block.w = screen_width / grid_width;
-  block.h = screen_height / grid_height;
+  block.w = 10;
+  block.h = 10;
 
   // Clear screen
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
@@ -48,8 +46,8 @@ void Renderer::Render(Player player) {
 
   // Draw the ground
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-  SDL_RenderDrawLine(sdl_renderer, 0, screen_height - (screen_height/grid_height * 10),
-                     screen_width, screen_height - (screen_height/grid_height * 10));
+  SDL_RenderDrawLine(sdl_renderer, 0, screen_height - (100),
+                     screen_width, screen_height - (100));
 
   // Render Player
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
