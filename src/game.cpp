@@ -1,4 +1,5 @@
 #include "game.h"
+#include "obstacle.h"
 #include "SDL.h"
 #include <iostream>
 
@@ -22,7 +23,7 @@ void Game::Run(Controller &controller, Renderer &renderer,
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, player);
     Update();
-    renderer.Render(player, ground);
+    renderer.Render(player, ground, obstacles);
 
     frame_end = SDL_GetTicks();
 
@@ -54,7 +55,17 @@ void Game::Update() {
   if (!player.alive)
     return;
 
+  if (tryout ==true) {
+    Obstacle one(1000, 200, 25,25,1280,640, 3);
+    obstacles.push_back(one);
+    tryout = false;
+  }
+
   player.Update();
+
+  for (Obstacle & obstacle : obstacles) {
+    obstacle.Update();
+  }
 
   int new_x = static_cast<int>(player.get_x());
   int new_y = static_cast<int>(player.get_y());

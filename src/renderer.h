@@ -3,6 +3,7 @@
 
 #include "SDL.h"
 #include "player.h"
+#include "obstacle.h"
 #include <vector>
 
 class Renderer {
@@ -10,7 +11,7 @@ public:
   Renderer(const std::size_t screen_width, const std::size_t screen_height);
   ~Renderer();
 
-  void Render(Player player, Object ground);
+  void Render(Player player, Object ground, std::vector<Obstacle> & obstacles);
   void UpdateWindowTitle(int score, int fps);
 
 private:

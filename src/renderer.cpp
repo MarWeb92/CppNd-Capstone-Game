@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include "player.h"
+#include "obstacle.h"
 #include <iostream>
 #include <string>
 
@@ -35,7 +36,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Player player, Object ground) {
+void Renderer::Render(Player player, Object ground, std::vector<Obstacle> & obstacles) {
   SDL_Rect block;
   block.w = 10; // drawing from location to the right, therefore positive
   block.h = -30; // drawing from location to the top, therefore negative
@@ -54,6 +55,16 @@ void Renderer::Render(Player player, Object ground) {
     block.x = static_cast<int>(player.get_x());
     block.y = static_cast<int>(player.GetAbsHeight());
     SDL_RenderFillRect(sdl_renderer, &block);
+
+  // Render Obstacles
+  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
+  for(Obstacle & obstacle : obstacles) {
+    block.w = obstacle.get_width();
+    block.h = obstacle.get_height();
+    block.x = obstacle.get_x();
+    block.y = obstacle.get_y();
+    SDL_RenderFillRect(sdl_renderer, &block);
+  }
 
   // Update Screen
   SDL_RenderPresent(sdl_renderer);

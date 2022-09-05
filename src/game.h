@@ -7,6 +7,7 @@
 #include "renderer.h"
 #include "player.h"
 #include "object.h"
+#include "obstacle.h"
 
 class Game {
  public:
@@ -19,6 +20,8 @@ class Game {
  private:
   Player player;
   Object ground;
+  std::vector<Obstacle> obstacles{};
+  bool tryout{true};
 
   std::random_device dev;
   std::mt19937 engine;
