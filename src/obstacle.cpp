@@ -3,9 +3,9 @@
 
 long int Obstacle::_blockCTR = 0;
 
-Obstacle::Obstacle(int x, int y, int width, int height, int screenWidth,
+Obstacle::Obstacle(int x, int y, int w, int h, int screenWidth,
                    int screenHeight, int speed)
-    : Object(x, y, screenHeight), _width(width), _height(height), _speed(speed) {
+    : Object(x, y,w,h, screenHeight), _speed(speed) {
         _blockCTR++;
     }
 

@@ -6,10 +6,10 @@
 #include <thread>
 
 Game::Game(int screenWidth, int screenHeight, const int groundLvl,
-           const int startPlayer_x, const int startPlayer_y)
-    : player(startPlayer_x, startPlayer_y, groundLvl, screenWidth,
+           const int startPlayer_x, const int startPlayer_y, const int playerWidth, const int playerHeight)
+    : player(startPlayer_x, startPlayer_y, playerWidth,playerHeight, groundLvl, screenWidth,
              screenHeight),
-      ground(0, groundLvl, screenHeight), engine(dev()) {
+      ground(0, groundLvl, 0,0, screenHeight), engine(dev()) {
   threads.emplace_back(std::move(std::thread(&Game::getObstacleTrigger, this)));
 }
 

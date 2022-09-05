@@ -1,8 +1,8 @@
 #include "player.h"
 #include <chrono>
 
-Player::Player(int x, int y, int refLvl, int screenWidth, int screenHeight)
-    : Object(x, y, refLvl, screenHeight), _screenWidth(screenWidth) {}
+Player::Player(int x, int y, int w, int h, int refLvl, int screenWidth, int screenHeight)
+    : Object(x, y, w, h, refLvl, screenHeight), _screenWidth(screenWidth) {}
 Player ::~Player() {}
 
 int Player::get_x() { return _x; }
