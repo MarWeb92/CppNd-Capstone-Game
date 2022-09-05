@@ -53,6 +53,7 @@ void Game::Run(Controller &controller, Renderer &renderer,
 
     std::cout << "Player X: " << player.get_x() << "\n";
     std::cout << "Player y: " << player.get_y() << "\n";
+    std::cout << "Number of array elements " << obstacles.size() << "\n";
   }
 }
 
@@ -81,6 +82,13 @@ void Game::Update() {
 
   for (Obstacle &obstacle : obstacles) {
     obstacle.Update();
+  }
+
+  // clean up vector
+  for(std::vector<Obstacle>::iterator it = obstacles.begin(); it != obstacles.end(); it++) {
+    if (it->get_x() <= -500) {
+      obstacles.erase(it);
+    }
   }
 
   score = Obstacle::get_blockCtr();
