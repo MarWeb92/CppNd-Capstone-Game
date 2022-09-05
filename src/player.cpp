@@ -52,7 +52,7 @@ void Player::Update() {
 
     case (JumpState::UpwardJump):
       if (_y < _jumpHeight) {
-        set_y(_y + 0.10 * (_jumpHeight - _y) + 5);
+        set_y(_y + 0.07 * (_jumpHeight - _y) + 3);
         _y > _jumpHeight ? _y = _jumpHeight : _y = _y;
       } else {
         _jumpState = JumpState::DownwardJump;
@@ -61,7 +61,7 @@ void Player::Update() {
 
     case (JumpState::DownwardJump):
       if (_y > 0) {
-        set_y(_y - 0.10 * (_jumpHeight - _y) - 5);
+        set_y(_y - 0.07 * (_jumpHeight - _y) - 3);
       } else {
         _y = 0;
         _jumping = false;
