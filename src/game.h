@@ -30,7 +30,7 @@ private:
   std::random_device dev;
   std::mt19937 engine;
 
-  int score{0};
+  long int score{0};
 
   void Update();
 };

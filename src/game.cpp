@@ -83,8 +83,7 @@ void Game::Update() {
     obstacle.Update();
   }
 
-  int new_x = static_cast<int>(player.get_x());
-  int new_y = static_cast<int>(player.get_y());
+  score = Obstacle::get_blockCtr();
 }
 
 int Game::GetScore() const { return score; }

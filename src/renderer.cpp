@@ -70,7 +70,7 @@ void Renderer::Render(Player player, Object ground, std::vector<Obstacle> & obst
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int score, int fps) {
+void Renderer::UpdateWindowTitle(long int score, int fps) {
   std::string title{"Score: " + std::to_string(score) +
                     " FPS: " + std::to_string(fps)};
   SDL_SetWindowTitle(sdl_window, title.c_str());

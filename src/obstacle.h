@@ -14,11 +14,13 @@ public:
   int get_height() {return _height;}
   int get_x() {return _x;}
   int get_y() {return _y;}
+  static long int get_blockCtr() {return _blockCTR;}
 
 private:
   int _speed{1};
   int _width{0};
   int _height{0};
+  static long int _blockCTR;
 };
 
 #endif
