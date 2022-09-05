@@ -1,11 +1,12 @@
 #include "game.h"
-#include "obstacle.h"
 #include "SDL.h"
+#include "obstacle.h"
 #include <iostream>
 
-Game::Game(int screenWidth, int screenHeight, const int groundLvl, const int startPlayer_x,
-           const int startPlayer_y)
-    : player(startPlayer_x, startPlayer_y, groundLvl, screenWidth, screenHeight),
+Game::Game(int screenWidth, int screenHeight, const int groundLvl,
+           const int startPlayer_x, const int startPlayer_y)
+    : player(startPlayer_x, startPlayer_y, groundLvl, screenWidth,
+             screenHeight),
       ground(0, groundLvl, screenHeight), engine(dev()) {}
 
 void Game::Run(Controller &controller, Renderer &renderer,
@@ -52,18 +53,29 @@ void Game::Run(Controller &controller, Renderer &renderer,
 }
 
 void Game::Update() {
+
+  int random_y;
+  int random_w;
+  int random_h;
+  std::uniform_int_distribution<int> rand_dist_height(0, ground.GetAbsHeight());
+  std::uniform_int_distribution<int> rand_dist_length_width(5, 200);
+
   if (!player.alive)
     return;
 
-  if (tryout ==true) {
-    Obstacle one(1000, 200, 25,25,1280,640, 3);
+  if (tryout == true) {
+    random_y = rand_dist_height(engine);
+    random_w = rand_dist_length_width(engine);
+    random_h = rand_dist_length_width(engine);
+
+    Obstacle one(2000, random_y, random_w, random_h, 1280, 640, 3);
     obstacles.push_back(one);
     tryout = false;
   }
 
   player.Update();
 
-  for (Obstacle & obstacle : obstacles) {
+  for (Obstacle &obstacle : obstacles) {
     obstacle.Update();
   }
 
