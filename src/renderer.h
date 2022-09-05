@@ -10,7 +10,7 @@ public:
   Renderer(const std::size_t screen_width, const std::size_t screen_height);
   ~Renderer();
 
-  void Render(Player player);
+  void Render(Player player, Object ground);
   void UpdateWindowTitle(int score, int fps);
 
 private:

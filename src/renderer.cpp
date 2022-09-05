@@ -35,10 +35,10 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Player player) {
+void Renderer::Render(Player player, Object ground) {
   SDL_Rect block;
-  block.w = 10;
-  block.h = 10;
+  block.w = -10;
+  block.h = -30;
 
   // Clear screen
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
@@ -46,8 +46,8 @@ void Renderer::Render(Player player) {
 
   // Draw the ground
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-  SDL_RenderDrawLine(sdl_renderer, 0, screen_height - (100),
-                     screen_width, screen_height - (100));
+  SDL_RenderDrawLine(sdl_renderer, 0, ground.GetAbsHeight(),
+                     screen_width, ground.GetAbsHeight());
 
   // Render Player
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);

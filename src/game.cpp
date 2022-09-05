@@ -2,9 +2,10 @@
 #include "SDL.h"
 #include <iostream>
 
-Game::Game(int screenHeight, const int startPlayer_x, const int startPlayer_y)
-    : player(startPlayer_x, startPlayer_y, screenHeight), engine(dev()) {
-}
+Game::Game(int screenHeight, const int groundLvl, const int startPlayer_x,
+           const int startPlayer_y)
+    : player(startPlayer_x, startPlayer_y, groundLvl, screenHeight),
+      ground(0, groundLvl, screenHeight), engine(dev()) {}
 
 void Game::Run(Controller &controller, Renderer &renderer,
                std::size_t target_frame_duration) {
@@ -21,7 +22,7 @@ void Game::Run(Controller &controller, Renderer &renderer,
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, player);
     Update();
-    renderer.Render(player);
+    renderer.Render(player, ground);
 
     frame_end = SDL_GetTicks();
 

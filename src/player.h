@@ -8,7 +8,7 @@ public:
   enum class Direction { kStop, kForward, kBackward };
 
   // Constructor and Destructor
-  Player(int x, int y, int screenHeight);
+  Player(int x, int y, int refLvl, int screenHeight);
   ~Player();
 
   void Update();

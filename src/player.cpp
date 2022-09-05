@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(int x, int y, int screenHeight):Object(x, y, screenHeight) {}
+Player::Player(int x, int y, int refLvl, int screenHeight):Object(x, y, refLvl, screenHeight) {}
 Player ::~Player(){}
 
 int Player::get_x(){return _x;}
