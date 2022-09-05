@@ -7,6 +7,7 @@
 #include "obstacle.h"
 #include "player.h"
 #include "renderer.h"
+#include <thread>
 #include <random>
 
 class Game {
@@ -15,6 +16,7 @@ public:
        const int startPlayer_x, const int startPlayer_y);
   void Run(Controller &controller, Renderer &renderer,
            std::size_t target_frame_duration);
+  void getObstacleTrigger();
   int GetScore() const;
   int GetSize() const;
 
@@ -22,7 +24,8 @@ private:
   Player player;
   Object ground;
   std::vector<Obstacle> obstacles{};
-  bool tryout{true};
+  bool triggerNewObstacle{true};
+  std::vector<std::thread> threads;
 
   std::random_device dev;
   std::mt19937 engine;
