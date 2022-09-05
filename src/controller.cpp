@@ -58,6 +58,7 @@ void Controller::HandleInput(bool &running, Player &player) {
         break;
       case SDLK_SPACE:
         _keySpacePressed = false;
+        player.set_jump(false);
         break;
       }
     }

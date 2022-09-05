@@ -46,7 +46,7 @@ void Game::Run(Controller &controller, Renderer &renderer,
     }
 
     std::cout << "Player X: " << player.get_x() << "\n";
-    // std::cout << "Player y: " << player.get_y() << "\n";
+    std::cout << "Player y: " << player.get_y() << "\n";
   }
 }
 

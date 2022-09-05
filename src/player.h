@@ -6,6 +6,7 @@
 class Player : public Object {
 public:
   enum class Direction { kStop, kForward, kBackward };
+  enum class JumpState { NoJump, UpwardJump, DownwardJump };
 
   // Constructor and Destructor
   Player(int x, int y, int refLvl, int screenHeight);
@@ -25,8 +26,11 @@ public:
 
 private:
   Direction _dir{Direction::kStop};
-  bool _jump{false};
-  int _speed{5};
+  JumpState _jumpState{JumpState::NoJump};
+  bool _jumpTrigger{false};
+  bool _jumping{false};
+  int _speed{7};
+  int _jumpHeight{350};
 };
 
 #endif
