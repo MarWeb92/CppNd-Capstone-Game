@@ -10,7 +10,7 @@
 
 class Game {
  public:
-  Game(int screenHeight, const int groundLvl, const int startPlayer_x, const int startPlayer_y);
+  Game(int screenWidth, int screenHeight, const int groundLvl, const int startPlayer_x, const int startPlayer_y);
   void Run(Controller &controller, Renderer &renderer,
            std::size_t target_frame_duration);
   int GetScore() const;

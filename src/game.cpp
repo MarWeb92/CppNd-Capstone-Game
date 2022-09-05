@@ -2,9 +2,9 @@
 #include "SDL.h"
 #include <iostream>
 
-Game::Game(int screenHeight, const int groundLvl, const int startPlayer_x,
+Game::Game(int screenWidth, int screenHeight, const int groundLvl, const int startPlayer_x,
            const int startPlayer_y)
-    : player(startPlayer_x, startPlayer_y, groundLvl, screenHeight),
+    : player(startPlayer_x, startPlayer_y, groundLvl, screenWidth, screenHeight),
       ground(0, groundLvl, screenHeight), engine(dev()) {}
 
 void Game::Run(Controller &controller, Renderer &renderer,

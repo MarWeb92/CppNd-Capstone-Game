@@ -9,7 +9,7 @@ public:
   enum class JumpState { NoJump, UpwardJump, DownwardJump };
 
   // Constructor and Destructor
-  Player(int x, int y, int refLvl, int screenHeight);
+  Player(int x, int y, int refLvl, int screenWidth, int screenHeight);
   ~Player();
 
   void Update();
@@ -31,6 +31,7 @@ private:
   bool _jumping{false};
   int _speed{7};
   int _jumpHeight{350};
+  int _screenWidth;
 };
 
 #endif
