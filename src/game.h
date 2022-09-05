@@ -7,8 +7,8 @@
 #include "obstacle.h"
 #include "player.h"
 #include "renderer.h"
-#include <thread>
 #include <random>
+#include <thread>
 
 class Game {
 public:
@@ -18,7 +18,7 @@ public:
            std::size_t target_frame_duration);
   void getObstacleTrigger();
   int GetScore() const;
-  int GetSize() const;
+  bool CheckCollision();
 
 private:
   Player player;

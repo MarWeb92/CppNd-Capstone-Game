@@ -2,16 +2,16 @@
 #include "SDL.h"
 #include "obstacle.h"
 #include <chrono>
-#include <thread>
 #include <iostream>
+#include <thread>
 
 Game::Game(int screenWidth, int screenHeight, const int groundLvl,
            const int startPlayer_x, const int startPlayer_y)
     : player(startPlayer_x, startPlayer_y, groundLvl, screenWidth,
              screenHeight),
       ground(0, groundLvl, screenHeight), engine(dev()) {
-        threads.emplace_back(std::move(std::thread(&Game::getObstacleTrigger, this)));
-      }
+  threads.emplace_back(std::move(std::thread(&Game::getObstacleTrigger, this)));
+}
 
 void Game::Run(Controller &controller, Renderer &renderer,
                std::size_t target_frame_duration) {
@@ -85,7 +85,8 @@ void Game::Update() {
   }
 
   // clean up vector
-  for(std::vector<Obstacle>::iterator it = obstacles.begin(); it != obstacles.end(); it++) {
+  for (std::vector<Obstacle>::iterator it = obstacles.begin();
+       it != obstacles.end(); it++) {
     if (it->get_x() <= -500) {
       obstacles.erase(it);
     }
@@ -124,4 +125,10 @@ void Game::getObstacleTrigger() {
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
+}
+
+bool Game::CheckCollision() {
+  bool returnVal{false};
+
+  return returnVal;
 }
