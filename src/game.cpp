@@ -4,33 +4,34 @@
 #include <algorithm>
 #include <chrono>
 #include <fstream>
-#include <iostream>
 #include <sstream>
 #include <thread>
 
+// Constructor
 Game::Game(int screenWidth, int screenHeight, const int groundLvl,
            const int startPlayer_x, const int startPlayer_y,
            const int playerWidth, const int playerHeight)
     : player(startPlayer_x, startPlayer_y, playerWidth, playerHeight, groundLvl,
              screenWidth, screenHeight),
       ground(0, groundLvl, 0, 0, screenHeight), engine(dev()) {
+
+  // Run the member method in a parallel thread to trigger obstacle gen.
   threads.emplace_back(std::move(std::thread(&Game::getObstacleTrigger, this)));
 
-  // read highscore if available
+  // read in highscore if available
   std::string line;
   std::ifstream inputFileStream("gamedata.txt");
-
   if (inputFileStream.is_open()) {
     std::getline(inputFileStream, line);
     std::istringstream linestream(line);
     linestream >> _highscore;
-
     inputFileStream.close();
   }
 }
 
+// Destructor
 Game::~Game() {
-  // thread barrier before Game is destructed
+  // thread barrier for all started threads before Game is destructed
   std::for_each(threads.begin(), threads.end(),
                 [](std::thread &t) { t.join(); });
 
@@ -82,44 +83,51 @@ void Game::Run(Controller &controller, Renderer &renderer,
   }
 }
 
+// Update method will call the Update methods of all relevant objects
+// Furthermore this will create the obstacles
 void Game::Update() {
 
-  int random_y;
-  int random_w;
-  int random_h;
+  int random_y; // on which level to put the obstacles
+  int random_w; // random width of obstacle
+  int random_h; // random height of obstacle
   std::uniform_int_distribution<int> rand_dist_height(0, ground.GetAbsHeight());
   std::uniform_int_distribution<int> rand_dist_length_width(5, 200);
 
+  // do not update anything no more, if player is dead
   if (!player.alive)
     return;
 
+  // detect if collision occured
   if (CheckCollision())
     player.alive = false;
 
+  // create new obstacle
   if (triggerNewObstacle == true) {
     random_y = rand_dist_height(engine);
     random_w = rand_dist_length_width(engine);
     random_h = rand_dist_length_width(engine);
 
-    Obstacle one(2000, random_y, random_w, random_h, 1280, 640, 3);
-    obstacles.push_back(one);
+    Obstacle obstcl(1300, random_y, random_w, random_h, 1280, 640, 3);
+    obstacles.push_back(obstcl);
     triggerNewObstacle = false;
   }
 
+  // update player and obstacles
   player.Update();
 
   for (Obstacle &obstacle : obstacles) {
     obstacle.Update();
   }
 
-  // clean up vector
+  // clean up vector of obstacles that already vanished
   for (std::vector<Obstacle>::iterator it = obstacles.begin();
        it != obstacles.end(); it++) {
-    if (it->get_x() <= -500) {
+    if (it->get_x() <= -250) {
       obstacles.erase(it);
     }
   }
 
+  // score equals the number of created obstacles
   score = Obstacle::get_blockCtr();
 
   // update highscore if score is higher
@@ -128,10 +136,11 @@ void Game::Update() {
 
 int Game::GetScore() const { return score; }
 
-// virtual function which is executed in a thread
+// This function implements an endless loop, run in a seperate thread
+// It cyclically gives a trigger to create a new obstacle
 void Game::getObstacleTrigger() {
 
-  // create random duration time
+  // create random duration time between 500ms and 3s
   std::uniform_int_distribution<int> dist(500, 3000);
   int cycleDuration = dist(engine);
 
@@ -158,6 +167,12 @@ void Game::getObstacleTrigger() {
   }
 }
 
+// This function checks if the player has collided with one of the obstacles.
+// Basic concept is to look at the x and y coordinates and the width and height
+// of the objects. If the x coordinate range of the player overlaps with the x
+// coordinate range of one of the obstacles AND the y coordinate range of the
+// player overlaps with the y coordinate range of THAT SAME obstacle, then a
+// collision occured!
 bool Game::CheckCollision() {
   bool returnVal{false};
   bool xOverlap{false};
@@ -187,7 +202,7 @@ bool Game::CheckCollision() {
       yOverlap |= false;
     }
 
-    // if both overlapps occur for one obstacle --> COLLISION
+    // if both overlapps occure for one obstacle --> COLLISION
     if (xOverlap && yOverlap) {
       returnVal = true;
     }

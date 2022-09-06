@@ -16,13 +16,16 @@ public:
        const int startPlayer_x, const int startPlayer_y, const int playerWidth,
        const int playerHeight);
   ~Game();
+
   void Run(Controller &controller, Renderer &renderer,
            std::size_t target_frame_duration);
-  void getObstacleTrigger();
+
   int GetScore() const;
-  bool CheckCollision();
 
 private:
+  void getObstacleTrigger();
+  bool CheckCollision();
+
   Player player;
   Object ground;
   std::vector<Obstacle> obstacles{};
