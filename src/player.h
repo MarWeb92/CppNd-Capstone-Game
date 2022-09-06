@@ -3,6 +3,7 @@
 
 #include "object.h"
 
+// class Player, publicly inheriting from Object
 class Player : public Object {
 public:
   enum class Direction { kStop, kForward, kBackward };
@@ -22,16 +23,17 @@ public:
   void set_dir(const Direction dir);
   void set_jump(const bool jump);
 
+  // Player state, indicating if game is still running or lost
   bool alive{true};
 
 private:
-  Direction _dir{Direction::kStop};
-  JumpState _jumpState{JumpState::NoJump};
-  bool _jumpTrigger{false};
-  bool _jumping{false};
-  int _speed{7};
-  int _jumpHeight{350};
-  int _screenWidth;
+  Direction _dir{Direction::kStop};        // moving direction of player
+  JumpState _jumpState{JumpState::NoJump}; // jump state
+  bool _jumpTrigger{false};                // player shall jump
+  bool _jumping{false};                    // player is currently jumping
+  int _speed{7};                           // player moving speed
+  int _jumpHeight{350};                    // height the player can jump
+  int _screenWidth; // screenwith for limiting player movement
 };
 
 #endif

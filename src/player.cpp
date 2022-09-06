@@ -1,11 +1,15 @@
 #include "player.h"
 #include <chrono>
 
+// Constructor, mainly calling the base class constructor
 Player::Player(int x, int y, int w, int h, int refLvl, int screenWidth,
                int screenHeight)
     : Object(x, y, w, h, refLvl, screenHeight), _screenWidth(screenWidth) {}
+
+// Destructor
 Player ::~Player() {}
 
+// Overriden virtual setter function for x-coordinate of the base class
 void Player::set_x(const int x) {
   if (x <= 0) {
     _x = 0;
@@ -15,6 +19,8 @@ void Player::set_x(const int x) {
     _x = x;
   }
 }
+
+// Overriden virtual setter function for y-coordinate of the base class
 void Player::set_y(const int y) {
   if (y <= 0) {
     _y = 0;
@@ -25,10 +31,13 @@ void Player::set_y(const int y) {
   }
 }
 
+// other setters
 void Player::set_dir(const Direction dir) { _dir = dir; }
 void Player::set_jump(const bool jump) { _jumpTrigger = jump; }
 
+// Update player x and y coordinates, based on movement and jumping
 void Player::Update() {
+  // X-Coordinate
   switch (_dir) {
   case (Direction::kStop):
     break;
@@ -40,8 +49,8 @@ void Player::Update() {
     break;
   }
 
+  // Y-Coordinate
   if (((_y <= 0) && (_jumpTrigger == true)) || (_jumping)) {
-    // Reset jump trigger
     switch (_jumpState) {
     case (JumpState::NoJump):
       _jumping = true;
