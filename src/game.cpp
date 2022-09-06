@@ -59,8 +59,6 @@ void Game::Run(Controller &controller, Renderer &renderer,
     if (frame_duration < target_frame_duration) {
       SDL_Delay(target_frame_duration - frame_duration);
     }
-
-    std::cout << "Number of array elements " << obstacles.size() << "\n";
   }
 }
 
@@ -71,7 +69,7 @@ void Game::Update() {
   int random_h;
   std::uniform_int_distribution<int> rand_dist_height(0, ground.GetAbsHeight());
   std::uniform_int_distribution<int> rand_dist_length_width(5, 200);
-  std::cout << "Player alive: " << player.alive << "\n";
+
   if (!player.alive)
     return;
 
@@ -150,15 +148,11 @@ bool Game::CheckCollision() {
          (player.get_x() + player.get_width()) <=
              (obstacle.get_x() + obstacle.get_width()))) {
       xOverlap |= true;
-      // std::cout << "Overlapped \n";
     } else {
-      // std::cout << "Player X: " << player.get_x() << "\n";
-      // std::cout << "Obstacle X: " << obstacle.get_x() << "\n";
-      // std::cout << "Obstacle + Width X: " << (obstacle.get_x()+
-      // obstacle.get_width()) << "\n";
       xOverlap |= false;
     }
 
+    // check for y-Coordinate overlapping with all obstacles
     if ((player.GetAbsHeight() >= obstacle.get_y()) &&
             (player.GetAbsHeight() <=
              (obstacle.get_y() + obstacle.get_height())) ||
@@ -166,16 +160,11 @@ bool Game::CheckCollision() {
          (player.GetAbsHeight() - player.get_height()) <=
              (obstacle.get_y() + obstacle.get_height()))) {
       yOverlap |= true;
-      std::cout << "Overlapped \n";
-
     } else {
-      // std::cout << "Player X: " << player.get_x() << "\n";
-      // std::cout << "Obstacle X: " << obstacle.get_x() << "\n";
-      // std::cout << "Obstacle + Width X: " << (obstacle.get_x()+
-      // obstacle.get_width()) << "\n";
       yOverlap |= false;
     }
 
+    // if both overlapps occur for one obstacle --> COLLISION
     if (xOverlap && yOverlap) {
       returnVal = true;
     }
