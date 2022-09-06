@@ -1,6 +1,7 @@
 #include "renderer.h"
-#include "player.h"
+#include "object.h"
 #include "obstacle.h"
+#include "player.h"
 #include <iostream>
 #include <string>
 
@@ -36,7 +37,9 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Player player, Object ground, std::vector<Obstacle> & obstacles) {
+// Main render method
+void Renderer::Render(Player player, Object ground,
+                      std::vector<Obstacle> &obstacles) {
   SDL_Rect block;
 
   // Clear screen
@@ -45,20 +48,20 @@ void Renderer::Render(Player player, Object ground, std::vector<Obstacle> & obst
 
   // Draw the ground
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-  SDL_RenderDrawLine(sdl_renderer, 0, ground.GetAbsHeight(),
-                     screen_width, ground.GetAbsHeight());
+  SDL_RenderDrawLine(sdl_renderer, 0, ground.GetAbsHeight(), screen_width,
+                     ground.GetAbsHeight());
 
   // Render Player
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    block.w = player.get_width();
-    block.h = -player.get_height();
-    block.x = player.get_x();
-    block.y = player.GetAbsHeight();
-    SDL_RenderFillRect(sdl_renderer, &block);
+  block.w = player.get_width();
+  block.h = -player.get_height();
+  block.x = player.get_x();
+  block.y = player.GetAbsHeight();
+  SDL_RenderFillRect(sdl_renderer, &block);
 
   // Render Obstacles
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
-  for(Obstacle & obstacle : obstacles) {
+  for (Obstacle &obstacle : obstacles) {
     block.w = obstacle.get_width();
     block.h = obstacle.get_height();
     block.x = obstacle.get_x();

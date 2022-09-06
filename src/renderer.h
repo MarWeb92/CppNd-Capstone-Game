@@ -2,8 +2,8 @@
 #define RENDERER_H
 
 #include "SDL.h"
-#include "player.h"
 #include "obstacle.h"
+#include "player.h"
 #include <vector>
 
 class Renderer {
@@ -11,7 +11,7 @@ public:
   Renderer(const std::size_t screen_width, const std::size_t screen_height);
   ~Renderer();
 
-  void Render(Player player, Object ground, std::vector<Obstacle> & obstacles);
+  void Render(Player player, Object ground, std::vector<Obstacle> &obstacles);
   void UpdateWindowTitle(long int score, int fps);
 
 private:
