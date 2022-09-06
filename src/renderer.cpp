@@ -73,8 +73,9 @@ void Renderer::Render(Player player, Object ground,
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(long int score, int fps) {
+void Renderer::UpdateWindowTitle(long int score, int fps, long int highscore) {
   std::string title{"Score: " + std::to_string(score) +
-                    " FPS: " + std::to_string(fps)};
+                    "  |  FPS: " + std::to_string(fps) +
+                    "  |  Alltime Highscore: " + std::to_string(highscore)};
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }

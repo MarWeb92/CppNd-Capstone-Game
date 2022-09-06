@@ -3,7 +3,9 @@
 #include "obstacle.h"
 #include <algorithm>
 #include <chrono>
+#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <thread>
 
 Game::Game(int screenWidth, int screenHeight, const int groundLvl,
@@ -13,12 +15,30 @@ Game::Game(int screenWidth, int screenHeight, const int groundLvl,
              screenWidth, screenHeight),
       ground(0, groundLvl, 0, 0, screenHeight), engine(dev()) {
   threads.emplace_back(std::move(std::thread(&Game::getObstacleTrigger, this)));
+
+  // read highscore if available
+  std::string line;
+  std::ifstream inputFileStream("gamedata.txt");
+
+  if (inputFileStream.is_open()) {
+    std::getline(inputFileStream, line);
+    std::istringstream linestream(line);
+    linestream >> _highscore;
+
+    inputFileStream.close();
+  }
 }
 
 Game::~Game() {
   // thread barrier before Game is destructed
   std::for_each(threads.begin(), threads.end(),
                 [](std::thread &t) { t.join(); });
+
+  // save all time highscore
+  std::ofstream dataFile;
+  dataFile.open("gamedata.txt");
+  dataFile << _highscore;
+  dataFile.close();
 }
 
 // Endless loop implementing the game loop
@@ -48,7 +68,7 @@ void Game::Run(Controller &controller, Renderer &renderer,
 
     // After every second, update the window title.
     if (frame_end - title_timestamp >= 1000) {
-      renderer.UpdateWindowTitle(score, frame_count);
+      renderer.UpdateWindowTitle(score, frame_count, _highscore);
       frame_count = 0;
       title_timestamp = frame_end;
     }
@@ -101,6 +121,9 @@ void Game::Update() {
   }
 
   score = Obstacle::get_blockCtr();
+
+  // update highscore if score is higher
+  score > _highscore ? _highscore = score : _highscore = _highscore;
 }
 
 int Game::GetScore() const { return score; }

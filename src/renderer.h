@@ -12,7 +12,7 @@ public:
   ~Renderer();
 
   void Render(Player player, Object ground, std::vector<Obstacle> &obstacles);
-  void UpdateWindowTitle(long int score, int fps);
+  void UpdateWindowTitle(long int score, int fps, long int highscore);
 
 private:
   SDL_Window *sdl_window;
