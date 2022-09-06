@@ -1,6 +1,7 @@
 #include "game.h"
 #include "SDL.h"
 #include "obstacle.h"
+#include <algorithm>
 #include <chrono>
 #include <iostream>
 #include <thread>
@@ -14,6 +15,13 @@ Game::Game(int screenWidth, int screenHeight, const int groundLvl,
   threads.emplace_back(std::move(std::thread(&Game::getObstacleTrigger, this)));
 }
 
+Game::~Game() {
+  // thread barrier before Game is destructed
+  std::for_each(threads.begin(), threads.end(),
+                [](std::thread &t) { t.join(); });
+}
+
+// Endless loop implementing the game loop
 void Game::Run(Controller &controller, Renderer &renderer,
                std::size_t target_frame_duration) {
   Uint32 title_timestamp = SDL_GetTicks();
@@ -109,7 +117,7 @@ void Game::getObstacleTrigger() {
   // get initial time point
   auto time1 = std::chrono::system_clock::now();
 
-  while (true) {
+  while (player.alive) {
     auto time2 = std::chrono::system_clock::now();
     auto time_diff =
         std::chrono::duration_cast<std::chrono::milliseconds>(time2 - time1)
@@ -134,7 +142,6 @@ bool Game::CheckCollision() {
   bool xOverlap{false};
   bool yOverlap{false};
 
-  
   for (auto obstacle : obstacles) {
     // check for x-Coordinate overlapping with all obstacles
     if ((player.get_x() >= obstacle.get_x()) &&
@@ -153,7 +160,8 @@ bool Game::CheckCollision() {
     }
 
     if ((player.GetAbsHeight() >= obstacle.get_y()) &&
-            (player.GetAbsHeight() <= (obstacle.get_y() + obstacle.get_height())) ||
+            (player.GetAbsHeight() <=
+             (obstacle.get_y() + obstacle.get_height())) ||
         ((player.GetAbsHeight() - player.get_height() >= obstacle.get_y()) &&
          (player.GetAbsHeight() - player.get_height()) <=
              (obstacle.get_y() + obstacle.get_height()))) {
@@ -168,10 +176,11 @@ bool Game::CheckCollision() {
       yOverlap |= false;
     }
 
-    if (xOverlap && yOverlap) {returnVal = true;}
+    if (xOverlap && yOverlap) {
+      returnVal = true;
+    }
     xOverlap = false;
     yOverlap = false;
-
   }
 
   return returnVal;
