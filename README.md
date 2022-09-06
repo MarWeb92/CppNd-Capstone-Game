@@ -2,9 +2,9 @@
 
 This repository contains the code for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213), submitted by Marius Weber. The code for this repo was based on the [SnakeGame repo](https://github.com/udacity/CppND-Capstone-Snake-Game) provided by udacity. 
 
-The approach that I took was to use the SnakeGame repository as a starting point and then reducing it to a bare minimum, to create a new game out of it. It is a kind of jump and run game that will run forever, unless the player dies. Target of the game is to achieve the alltime highscore, that gets saved.
+The approach that I took was to use the SnakeGame repository as a starting point and then reducing it to a bare minimum, to create a new game out of it afterwards. It is a kind of jump and run game that will run forever, unless the player dies. There are red obstacles moving across the window that the player needs to avoid. Target of the game is to achieve the alltime highscore, that gets saved. The score is increased whenever a new obstacle was created, so basically indicating how long the player survived.
 
-
+<img src="JumpGame_Demo.gif"/>
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
@@ -32,13 +32,13 @@ The approach that I took was to use the SnakeGame repository as a starting point
 * By pressing the arrow keys or 'a' and 'd', it is possible to move the player back and forth
 * The player jumps if the Space bar is pushed. (Holding the space bar will lead to consecutive jumps)
 * If the player collides with a red obstacle, the game is over.
-* The goal of the game is to avoid hitting as many obstacles as possible. The score of the game is the amount of obstacles that were created before the player hits an obstacle.
+* The goal of the game is to avoid hitting the obstacles for as long as possible. The score of the game is the amount of obstacles that were created before the player dies.
 
 ## Class structure
 There are a couple of classes that were created:
-* Controller: Handling the user input
+* Controller: Handling of the user input
 * Renderer: Renders the frame using SDL2
-* Object: Base class for Player and Obstacle which are the two main artifacts this game is build with, providing some common attributes and methods for the derived classes.
+* Object: Base class for Player and Obstacle which are the two main artifacts this game is build upon, providing some common attributes and methods for the derived classes.
 * Player: Derived class from the Object class. This class represents the player in the game and is only instantiated once.
 * Obstacle: Derived class from the Object class. This class represents the Obstacles to avoid during the game. Obstacles move across the screen and a collision by the player and an Obstacle terminates the game. There are multiple Obstacles created in the game.
 
