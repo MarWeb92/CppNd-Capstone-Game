@@ -17,13 +17,14 @@ public:
   virtual void set_x(const int x);
   virtual void set_y(const int y);
 
+  // get the absolute height as needed for SDL renderer
   int GetAbsHeight();
 
 protected:
-  int _x, _y;
-  int _w{0}, _h{0};
-  int _screenHeight;
-  int _refLvl{0};
+  int _x, _y;        // coordinates
+  int _w{0}, _h{0};  // shape (width, height)
+  int _screenHeight; // rendered screen height
+  int _refLvl{0};    // reference level, usually ground level
 };
 
 #endif
