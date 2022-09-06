@@ -6,11 +6,6 @@ Player::Player(int x, int y, int w, int h, int refLvl, int screenWidth,
     : Object(x, y, w, h, refLvl, screenHeight), _screenWidth(screenWidth) {}
 Player ::~Player() {}
 
-int Player::get_x() { return _x; }
-int Player::get_y() { return _y; }
-int Player::get_width() { return _w; }
-int Player::get_height() { return _h; }
-
 void Player::set_x(const int x) {
   if (x <= 0) {
     _x = 0;

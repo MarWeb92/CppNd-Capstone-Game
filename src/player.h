@@ -9,18 +9,16 @@ public:
   enum class JumpState { NoJump, UpwardJump, DownwardJump };
 
   // Constructor and Destructor
-  Player(int x, int y, int w, int h, int refLvl, int screenWidth, int screenHeight);
+  Player(int x, int y, int w, int h, int refLvl, int screenWidth,
+         int screenHeight);
   ~Player();
 
+  // Update method to update player instance attributes
   void Update();
 
   // getters and setters
-  int get_x();
-  int get_y();
-  int get_width();
-  int get_height();
-  void set_x(const int x);
-  void set_y(const int y);
+  void set_x(const int x) override;
+  void set_y(const int y) override;
   void set_dir(const Direction dir);
   void set_jump(const bool jump);
 
