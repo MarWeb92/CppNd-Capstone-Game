@@ -4,14 +4,15 @@
 #include "player.h"
 
 class Controller {
- public:
-  void ChangeDirection(Player::Direction input, Player &player);
+public:
   void HandleInput(bool &running, Player &player);
 
- private:
-    bool _keyRightPressed{false};
-    bool _keyLeftPressed{false};
-    bool _keySpacePressed{false};
+private:
+  void ChangeDirection(Player::Direction input, Player &player);
+
+  bool _keyRightPressed{false};
+  bool _keyLeftPressed{false};
+  bool _keySpacePressed{false};
 };
 
 #endif
