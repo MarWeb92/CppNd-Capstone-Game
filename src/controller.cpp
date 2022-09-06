@@ -34,6 +34,7 @@ void Controller::HandleInput(bool &running, Player &player) {
   while (SDL_PollEvent(&e)) {
     // Close window
     if (e.type == SDL_QUIT) {
+      player.alive = false;
       running = false;
     }
 
