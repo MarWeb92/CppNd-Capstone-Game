@@ -1,12 +1,15 @@
 #include "player.h"
 #include <chrono>
 
-Player::Player(int x, int y, int w, int h, int refLvl, int screenWidth, int screenHeight)
+Player::Player(int x, int y, int w, int h, int refLvl, int screenWidth,
+               int screenHeight)
     : Object(x, y, w, h, refLvl, screenHeight), _screenWidth(screenWidth) {}
 Player ::~Player() {}
 
 int Player::get_x() { return _x; }
 int Player::get_y() { return _y; }
+int Player::get_width() { return _w; }
+int Player::get_height() { return _h; }
 
 void Player::set_x(const int x) {
   if (x <= 0) {
@@ -18,7 +21,7 @@ void Player::set_x(const int x) {
   }
 }
 void Player::set_y(const int y) {
-    if (y <= 0) {
+  if (y <= 0) {
     _y = 0;
   } else if (y >= _screenHeight - _refLvl) {
     _y = _screenWidth - _refLvl;

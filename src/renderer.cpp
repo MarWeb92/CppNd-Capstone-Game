@@ -38,8 +38,6 @@ Renderer::~Renderer() {
 
 void Renderer::Render(Player player, Object ground, std::vector<Obstacle> & obstacles) {
   SDL_Rect block;
-  block.w = 10; // drawing from location to the right, therefore positive
-  block.h = -30; // drawing from location to the top, therefore negative
 
   // Clear screen
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
@@ -52,8 +50,10 @@ void Renderer::Render(Player player, Object ground, std::vector<Obstacle> & obst
 
   // Render Player
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    block.x = static_cast<int>(player.get_x());
-    block.y = static_cast<int>(player.GetAbsHeight());
+    block.w = player.get_width();
+    block.h = -player.get_height();
+    block.x = player.get_x();
+    block.y = player.GetAbsHeight();
     SDL_RenderFillRect(sdl_renderer, &block);
 
   // Render Obstacles

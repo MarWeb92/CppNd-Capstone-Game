@@ -6,10 +6,11 @@
 #include <thread>
 
 Game::Game(int screenWidth, int screenHeight, const int groundLvl,
-           const int startPlayer_x, const int startPlayer_y, const int playerWidth, const int playerHeight)
-    : player(startPlayer_x, startPlayer_y, playerWidth,playerHeight, groundLvl, screenWidth,
-             screenHeight),
-      ground(0, groundLvl, 0,0, screenHeight), engine(dev()) {
+           const int startPlayer_x, const int startPlayer_y,
+           const int playerWidth, const int playerHeight)
+    : player(startPlayer_x, startPlayer_y, playerWidth, playerHeight, groundLvl,
+             screenWidth, screenHeight),
+      ground(0, groundLvl, 0, 0, screenHeight), engine(dev()) {
   threads.emplace_back(std::move(std::thread(&Game::getObstacleTrigger, this)));
 }
 
@@ -51,8 +52,6 @@ void Game::Run(Controller &controller, Renderer &renderer,
       SDL_Delay(target_frame_duration - frame_duration);
     }
 
-    std::cout << "Player X: " << player.get_x() << "\n";
-    std::cout << "Player y: " << player.get_y() << "\n";
     std::cout << "Number of array elements " << obstacles.size() << "\n";
   }
 }
@@ -64,9 +63,12 @@ void Game::Update() {
   int random_h;
   std::uniform_int_distribution<int> rand_dist_height(0, ground.GetAbsHeight());
   std::uniform_int_distribution<int> rand_dist_length_width(5, 200);
-
+  std::cout << "Player alive: " << player.alive << "\n";
   if (!player.alive)
     return;
+
+  if (CheckCollision())
+    player.alive = false;
 
   if (triggerNewObstacle == true) {
     random_y = rand_dist_height(engine);
@@ -129,6 +131,48 @@ void Game::getObstacleTrigger() {
 
 bool Game::CheckCollision() {
   bool returnVal{false};
+  bool xOverlap{false};
+  bool yOverlap{false};
+
+  
+  for (auto obstacle : obstacles) {
+    // check for x-Coordinate overlapping with all obstacles
+    if ((player.get_x() >= obstacle.get_x()) &&
+            (player.get_x() <= (obstacle.get_x() + obstacle.get_width())) ||
+        ((player.get_x() + player.get_width() >= obstacle.get_x()) &&
+         (player.get_x() + player.get_width()) <=
+             (obstacle.get_x() + obstacle.get_width()))) {
+      xOverlap |= true;
+      // std::cout << "Overlapped \n";
+    } else {
+      // std::cout << "Player X: " << player.get_x() << "\n";
+      // std::cout << "Obstacle X: " << obstacle.get_x() << "\n";
+      // std::cout << "Obstacle + Width X: " << (obstacle.get_x()+
+      // obstacle.get_width()) << "\n";
+      xOverlap |= false;
+    }
+
+    if ((player.GetAbsHeight() >= obstacle.get_y()) &&
+            (player.GetAbsHeight() <= (obstacle.get_y() + obstacle.get_height())) ||
+        ((player.GetAbsHeight() - player.get_height() >= obstacle.get_y()) &&
+         (player.GetAbsHeight() - player.get_height()) <=
+             (obstacle.get_y() + obstacle.get_height()))) {
+      yOverlap |= true;
+      std::cout << "Overlapped \n";
+
+    } else {
+      // std::cout << "Player X: " << player.get_x() << "\n";
+      // std::cout << "Obstacle X: " << obstacle.get_x() << "\n";
+      // std::cout << "Obstacle + Width X: " << (obstacle.get_x()+
+      // obstacle.get_width()) << "\n";
+      yOverlap |= false;
+    }
+
+    if (xOverlap && yOverlap) {returnVal = true;}
+    xOverlap = false;
+    yOverlap = false;
+
+  }
 
   return returnVal;
 }

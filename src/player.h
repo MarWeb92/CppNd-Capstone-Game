@@ -17,6 +17,8 @@ public:
   // getters and setters
   int get_x();
   int get_y();
+  int get_width();
+  int get_height();
   void set_x(const int x);
   void set_y(const int y);
   void set_dir(const Direction dir);
